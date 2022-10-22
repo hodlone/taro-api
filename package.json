@@ -1,0 +1,33 @@
+{
+  "name": "@hodlone/taro-api",
+  "version": "0.1.0",
+  "description": "Bitcoin Taro API client for lightning labs Taro daemon",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "package.json",
+    "protos",
+    "README.md"
+  ],
+  "scripts": {
+    "publish": "tsc && npm publish --access public",
+    "build": "tsc",
+    "generate:types": "./node_modules/.bin/proto-loader-gen-types --longs=String --enums=String --defaults --oneofs --grpcLib=@grpc/grpc-js --outDir=./src/types/ protos/*.proto"
+  },
+  "author": {
+    "name": "Ricardo Alonzo"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@grpc/grpc-js": "1.7.2",
+    "@grpc/proto-loader": "0.7.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hodlone/taro-api.git"
+  },
+  "devDependencies": {
+    "typescript": "4.8.4"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    /* Language and Environment */
+    "target": "es2015", /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    /* Modules */
+    "module": "commonjs", /* Specify what module code is generated. */
+    /* Emit */
+    "declaration": true, /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
+    "sourceMap": true, /* Create source map files for emitted JavaScript files. */
+    "outDir": "./dist", /* Specify an output folder for all emitted files. */
+    /* Type Checking */
+    "noImplicitAny": true, /* Enable error reporting for expressions and declarations with an implied `any` type.. */
+    "esModuleInterop": true
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
