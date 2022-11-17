@@ -1,6 +1,6 @@
 {
   "name": "@hodlone/taro-api",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Bitcoin Taro API client for lightning labs Taro daemon",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

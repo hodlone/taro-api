@@ -20,6 +20,8 @@ export interface ProtoGrpcType {
     AssetFamily: MessageTypeDefinition
     AssetFamilyBalance: MessageTypeDefinition
     AssetOutput: MessageTypeDefinition
+    AssetSpendDelta: MessageTypeDefinition
+    AssetTransfer: MessageTypeDefinition
     AssetType: EnumTypeDefinition
     DebugLevelRequest: MessageTypeDefinition
     DebugLevelResponse: MessageTypeDefinition
@@ -32,6 +34,8 @@ export interface ProtoGrpcType {
     ListAssetResponse: MessageTypeDefinition
     ListBalancesRequest: MessageTypeDefinition
     ListBalancesResponse: MessageTypeDefinition
+    ListTransfersRequest: MessageTypeDefinition
+    ListTransfersResponse: MessageTypeDefinition
     MintAssetRequest: MessageTypeDefinition
     MintAssetResponse: MessageTypeDefinition
     NewAddrRequest: MessageTypeDefinition

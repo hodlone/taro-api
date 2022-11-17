@@ -39,5 +39,9 @@ Making calls.
   const transfer = await taro.sendAsset({ taroAddr: address.encoded })
 
   console.log(transfer);
+
+  const { transfers } = await taro.listTransfers();
+
+  console.log(transfers[0].assetSpendDeltas);
 })()
 ```

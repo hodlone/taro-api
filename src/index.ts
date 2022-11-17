@@ -25,15 +25,18 @@ import { ImportProofRequest } from "./types/tarorpc/ImportProofRequest";
 import { ImportProofResponse__Output } from "./types/tarorpc/ImportProofResponse";
 import { SendAssetRequest } from "./types/tarorpc/SendAssetRequest";
 import { SendAssetResponse__Output } from "./types/tarorpc/SendAssetResponse";
+import { ListTransfersResponse__Output } from "./types/tarorpc/ListTransfersResponse";
 
 /**
  * @TaroClientOptions interface
  */
 
 export default interface TaroClientOptions {
+
   /**
    * @socket Taro daemon's host and port in `host:port` format.
    */
+
   socket: string;
 
   /**
@@ -41,9 +44,11 @@ export default interface TaroClientOptions {
    */
 
   macaroon: string;
+
   /**
    * @cert Taro daemon's TLS certificate in HEX format.
    */
+
   cert: string;
 }
 
@@ -107,7 +112,9 @@ export class TaroApi {
    * @mintAssets MintAsset will attempts to mint the set of assets (async by default to ensure proper batching) specified in the request.
    */
 
-  async mintAssets( request: MintAssetRequest ): Promise<MintAssetResponse__Output> {
+  async mintAssets(
+    request: MintAssetRequest
+  ): Promise<MintAssetResponse__Output> {
     return new Promise((resolve, reject) => {
       this.client.MintAsset(request, (error, response) => {
         if (error) reject(error);
@@ -135,7 +142,9 @@ export class TaroApi {
    * @listBalances ListBalances lists asset balances.
    */
 
-  async listBalances(request: ListBalancesRequest): Promise<ListBalancesResponse__Output> {
+  async listBalances(
+    request: ListBalancesRequest
+  ): Promise<ListBalancesResponse__Output> {
     return new Promise((resolve, reject) => {
       this.client.ListBalances(request, (error, response) => {
         if (error) reject(error);
@@ -146,10 +155,24 @@ export class TaroApi {
   }
 
   /**
+   * @listTransfers ListTransfers lists asset transfers.
+   */
+
+  async listTransfers(): Promise<ListTransfersResponse__Output> {
+    return new Promise((resolve, reject) => {
+      this.client.ListTransfers({}, (error, response) => {
+        if (error) reject(error);
+
+        resolve(<ListTransfersResponse__Output>response);
+      });
+    });
+  }
+
+  /**
    * @stopDaemon StopDaemon will send a shutdown request to the interrupt handler, triggering a graceful shutdown of the daemon.
    */
 
-  async stopDaemon( request: StopRequest ): Promise<StopResponse__Output> {
+  async stopDaemon(request: StopRequest): Promise<StopResponse__Output> {
     return new Promise((resolve, reject) => {
       this.client.StopDaemon(request, (error, response) => {
         if (error) reject(error);
@@ -166,7 +189,9 @@ export class TaroApi {
     sub-system.
    */
 
-  async debugLevel( request: DebugLevelRequest ): Promise<DebugLevelResponse__Output> {
+  async debugLevel(
+    request: DebugLevelRequest
+  ): Promise<DebugLevelResponse__Output> {
     return new Promise((resolve, reject) => {
       this.client.DebugLevel(request, (error, response) => {
         if (error) reject(error);
@@ -180,7 +205,9 @@ export class TaroApi {
    * @queryAddrs QueryTaroAddrs queries the set of Taro addresses stored in the database.
    */
 
-  async queryAddrs( request: QueryAddrRequest ): Promise<QueryAddrResponse__Output> {
+  async queryAddrs(
+    request: QueryAddrRequest
+  ): Promise<QueryAddrResponse__Output> {
     return new Promise((resolve, reject) => {
       this.client.QueryAddrs(request, (error, response) => {
         if (error) reject(error);
@@ -208,7 +235,7 @@ export class TaroApi {
    * @decodeAddr DecodeAddr decode a Taro address into a partial asset message that represents the asset it wants to receive.
    */
 
-  async decodeAddr( request: DecodeAddrRequest ): Promise<Addr__Output> {
+  async decodeAddr(request: DecodeAddrRequest): Promise<Addr__Output> {
     return new Promise((resolve, reject) => {
       this.client.DecodeAddr(request, (error, response) => {
         if (error) reject(error);
@@ -222,7 +249,9 @@ export class TaroApi {
    * @addrReceives List all receives for incoming asset transfers for addresses that were created previously.
    */
 
-  async addrReceives( request: AddrReceivesRequest ): Promise<AddrReceivesResponse__Output> {
+  async addrReceives(
+    request: AddrReceivesRequest
+  ): Promise<AddrReceivesResponse__Output> {
     return new Promise((resolve, reject) => {
       this.client.AddrReceives(request, (error, response) => {
         if (error) reject(error);
@@ -236,7 +265,7 @@ export class TaroApi {
    * @verifyProof VerifyProof attempts to verify a given proof file that claims to be anchored at the specified genesis point.
    */
 
-  async verifyProof( request: ProofFile ): Promise<ProofVerifyResponse__Output> {
+  async verifyProof(request: ProofFile): Promise<ProofVerifyResponse__Output> {
     return new Promise((resolve, reject) => {
       this.client.VerifyProof(request, (error, response) => {
         if (error) reject(error);
@@ -252,7 +281,9 @@ export class TaroApi {
     script key, and internal key.
    */
 
-  async importProof( request: ImportProofRequest ): Promise<ImportProofResponse__Output> {
+  async importProof(
+    request: ImportProofRequest
+  ): Promise<ImportProofResponse__Output> {
     return new Promise((resolve, reject) => {
       this.client.ImportProof(request, (error, response) => {
         if (error) reject(error);
@@ -268,10 +299,12 @@ export class TaroApi {
     proof file information the receiver needs to fully receive the asset.
    */
 
-  async sendAsset( request: SendAssetRequest ): Promise<SendAssetResponse__Output> {
+  async sendAsset(
+    request: SendAssetRequest
+  ): Promise<SendAssetResponse__Output> {
     return new Promise((resolve, reject) => {
       this.client.SendAsset(request, (error, response) => {
-        if (error) reject(error)
+        if (error) reject(error);
 
         resolve(<SendAssetResponse__Output>response);
       });
