@@ -6,6 +6,8 @@ import { TaroClient } from "./types/tarorpc/Taro";
 import { ListAssetResponse__Output } from "./types/tarorpc/ListAssetResponse";
 import { ListBalancesRequest } from "./types/tarorpc/ListBalancesRequest";
 import { ListBalancesResponse__Output } from "./types/tarorpc/ListBalancesResponse";
+import { ListGroupsResponse__Output } from "./types/tarorpc/ListGroupsResponse";
+import { ListUtxosResponse__Output } from "./types/tarorpc/ListUtxosResponse";
 import { MintAssetRequest } from "./types/tarorpc/MintAssetRequest";
 import { MintAssetResponse__Output } from "./types/tarorpc/MintAssetResponse";
 import { DebugLevelRequest } from "./types/tarorpc/DebugLevelRequest";
@@ -155,6 +157,21 @@ export class TaroApi {
   }
 
   /**
+   * @listGroups ListGroups lists the asset groups known to
+   * the target daemon, and the assets held in each group.
+   */
+
+  async listGroups(): Promise<ListGroupsResponse__Output> {
+    return new Promise((resolve, reject) => {
+      this.client.ListGroups({}, (error, response) => {
+        if (error) reject(error);
+
+        resolve(<ListGroupsResponse__Output>response);
+      });
+    });
+  }
+
+  /**
    * @listTransfers ListTransfers lists asset transfers.
    */
 
@@ -164,6 +181,21 @@ export class TaroApi {
         if (error) reject(error);
 
         resolve(<ListTransfersResponse__Output>response);
+      });
+    });
+  }
+
+  /**
+   * @listUtxos ListUtxos lists the UTXOs managed by the
+   * target daemon, and the assets they hold.
+   */
+
+  async listUtxos(): Promise<ListUtxosResponse__Output> {
+    return new Promise((resolve, reject) => {
+      this.client.ListUtxos({}, (error, response) => {
+        if (error) reject(error);
+
+        resolve(<ListUtxosResponse__Output>response);
       });
     });
   }

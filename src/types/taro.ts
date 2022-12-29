@@ -17,8 +17,9 @@ export interface ProtoGrpcType {
     AnchorInfo: MessageTypeDefinition
     Asset: MessageTypeDefinition
     AssetBalance: MessageTypeDefinition
-    AssetFamily: MessageTypeDefinition
-    AssetFamilyBalance: MessageTypeDefinition
+    AssetGroup: MessageTypeDefinition
+    AssetGroupBalance: MessageTypeDefinition
+    AssetHumanReadable: MessageTypeDefinition
     AssetOutput: MessageTypeDefinition
     AssetSpendDelta: MessageTypeDefinition
     AssetTransfer: MessageTypeDefinition
@@ -28,14 +29,20 @@ export interface ProtoGrpcType {
     DecodeAddrRequest: MessageTypeDefinition
     ExportProofRequest: MessageTypeDefinition
     GenesisInfo: MessageTypeDefinition
+    GroupedAssets: MessageTypeDefinition
     ImportProofRequest: MessageTypeDefinition
     ImportProofResponse: MessageTypeDefinition
     ListAssetRequest: MessageTypeDefinition
     ListAssetResponse: MessageTypeDefinition
     ListBalancesRequest: MessageTypeDefinition
     ListBalancesResponse: MessageTypeDefinition
+    ListGroupsRequest: MessageTypeDefinition
+    ListGroupsResponse: MessageTypeDefinition
     ListTransfersRequest: MessageTypeDefinition
     ListTransfersResponse: MessageTypeDefinition
+    ListUtxosRequest: MessageTypeDefinition
+    ListUtxosResponse: MessageTypeDefinition
+    ManagedUtxo: MessageTypeDefinition
     MintAssetRequest: MessageTypeDefinition
     MintAssetResponse: MessageTypeDefinition
     NewAddrRequest: MessageTypeDefinition

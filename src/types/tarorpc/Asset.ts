@@ -2,7 +2,7 @@
 
 import type { GenesisInfo as _tarorpc_GenesisInfo, GenesisInfo__Output as _tarorpc_GenesisInfo__Output } from '../tarorpc/GenesisInfo';
 import type { AssetType as _tarorpc_AssetType } from '../tarorpc/AssetType';
-import type { AssetFamily as _tarorpc_AssetFamily, AssetFamily__Output as _tarorpc_AssetFamily__Output } from '../tarorpc/AssetFamily';
+import type { AssetGroup as _tarorpc_AssetGroup, AssetGroup__Output as _tarorpc_AssetGroup__Output } from '../tarorpc/AssetGroup';
 import type { AnchorInfo as _tarorpc_AnchorInfo, AnchorInfo__Output as _tarorpc_AnchorInfo__Output } from '../tarorpc/AnchorInfo';
 import type { Long } from '@grpc/proto-loader';
 
@@ -15,7 +15,7 @@ export interface Asset {
   'relativeLockTime'?: (number);
   'scriptVersion'?: (number);
   'scriptKey'?: (Buffer | Uint8Array | string);
-  'assetFamily'?: (_tarorpc_AssetFamily | null);
+  'assetGroup'?: (_tarorpc_AssetGroup | null);
   'chainAnchor'?: (_tarorpc_AnchorInfo | null);
 }
 
@@ -28,6 +28,6 @@ export interface Asset__Output {
   'relativeLockTime': (number);
   'scriptVersion': (number);
   'scriptKey': (Buffer);
-  'assetFamily': (_tarorpc_AssetFamily__Output | null);
+  'assetGroup': (_tarorpc_AssetGroup__Output | null);
   'chainAnchor': (_tarorpc_AnchorInfo__Output | null);
 }
