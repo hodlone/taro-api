@@ -88,7 +88,12 @@ export class TaroApi {
     };
 
     const protoPath = Path.join(__dirname, "../protos", "taro.proto");
-    const packageDefinition = protoLoader.loadSync(protoPath);
+    const packageDefinition = protoLoader.loadSync(protoPath, {
+      longs: String,
+      enums: String,
+      defaults: true,
+      oneofs: true,
+    });
     const proto = grpc.loadPackageDefinition(
       packageDefinition
     ) as unknown as ProtoGrpcType;
