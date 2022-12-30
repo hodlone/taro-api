@@ -8,7 +8,7 @@ export interface Addr {
   'assetId'?: (Buffer | Uint8Array | string);
   'assetType'?: (_tarorpc_AssetType | keyof typeof _tarorpc_AssetType);
   'amount'?: (number | string | Long);
-  'familyKey'?: (Buffer | Uint8Array | string);
+  'groupKey'?: (Buffer | Uint8Array | string);
   'scriptKey'?: (Buffer | Uint8Array | string);
   'internalKey'?: (Buffer | Uint8Array | string);
   'taprootOutputKey'?: (Buffer | Uint8Array | string);
@@ -19,7 +19,7 @@ export interface Addr__Output {
   'assetId': (Buffer);
   'assetType': (keyof typeof _tarorpc_AssetType);
   'amount': (string);
-  'familyKey': (Buffer);
+  'groupKey': (Buffer);
   'scriptKey': (Buffer);
   'internalKey': (Buffer);
   'taprootOutputKey': (Buffer);

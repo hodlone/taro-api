@@ -3,16 +3,16 @@
 
 export interface ListBalancesRequest {
   'assetId'?: (boolean);
-  'famKey'?: (boolean);
+  'groupKey'?: (boolean);
   'assetFilter'?: (Buffer | Uint8Array | string);
-  'familyKeyFilter'?: (Buffer | Uint8Array | string);
-  'groupBy'?: "assetId"|"famKey";
+  'groupKeyFilter'?: (Buffer | Uint8Array | string);
+  'groupBy'?: "assetId"|"groupKey";
 }
 
 export interface ListBalancesRequest__Output {
   'assetId'?: (boolean);
-  'famKey'?: (boolean);
+  'groupKey'?: (boolean);
   'assetFilter': (Buffer);
-  'familyKeyFilter': (Buffer);
-  'groupBy': "assetId"|"famKey";
+  'groupKeyFilter': (Buffer);
+  'groupBy': "assetId"|"groupKey";
 }

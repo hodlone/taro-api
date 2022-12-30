@@ -15,8 +15,12 @@ import type { ListAssetRequest as _tarorpc_ListAssetRequest, ListAssetRequest__O
 import type { ListAssetResponse as _tarorpc_ListAssetResponse, ListAssetResponse__Output as _tarorpc_ListAssetResponse__Output } from '../tarorpc/ListAssetResponse';
 import type { ListBalancesRequest as _tarorpc_ListBalancesRequest, ListBalancesRequest__Output as _tarorpc_ListBalancesRequest__Output } from '../tarorpc/ListBalancesRequest';
 import type { ListBalancesResponse as _tarorpc_ListBalancesResponse, ListBalancesResponse__Output as _tarorpc_ListBalancesResponse__Output } from '../tarorpc/ListBalancesResponse';
+import type { ListGroupsRequest as _tarorpc_ListGroupsRequest, ListGroupsRequest__Output as _tarorpc_ListGroupsRequest__Output } from '../tarorpc/ListGroupsRequest';
+import type { ListGroupsResponse as _tarorpc_ListGroupsResponse, ListGroupsResponse__Output as _tarorpc_ListGroupsResponse__Output } from '../tarorpc/ListGroupsResponse';
 import type { ListTransfersRequest as _tarorpc_ListTransfersRequest, ListTransfersRequest__Output as _tarorpc_ListTransfersRequest__Output } from '../tarorpc/ListTransfersRequest';
 import type { ListTransfersResponse as _tarorpc_ListTransfersResponse, ListTransfersResponse__Output as _tarorpc_ListTransfersResponse__Output } from '../tarorpc/ListTransfersResponse';
+import type { ListUtxosRequest as _tarorpc_ListUtxosRequest, ListUtxosRequest__Output as _tarorpc_ListUtxosRequest__Output } from '../tarorpc/ListUtxosRequest';
+import type { ListUtxosResponse as _tarorpc_ListUtxosResponse, ListUtxosResponse__Output as _tarorpc_ListUtxosResponse__Output } from '../tarorpc/ListUtxosResponse';
 import type { MintAssetRequest as _tarorpc_MintAssetRequest, MintAssetRequest__Output as _tarorpc_MintAssetRequest__Output } from '../tarorpc/MintAssetRequest';
 import type { MintAssetResponse as _tarorpc_MintAssetResponse, MintAssetResponse__Output as _tarorpc_MintAssetResponse__Output } from '../tarorpc/MintAssetResponse';
 import type { NewAddrRequest as _tarorpc_NewAddrRequest, NewAddrRequest__Output as _tarorpc_NewAddrRequest__Output } from '../tarorpc/NewAddrRequest';
@@ -93,6 +97,15 @@ export interface TaroClient extends grpc.Client {
   listBalances(argument: _tarorpc_ListBalancesRequest, options: grpc.CallOptions, callback: grpc.requestCallback<_tarorpc_ListBalancesResponse__Output>): grpc.ClientUnaryCall;
   listBalances(argument: _tarorpc_ListBalancesRequest, callback: grpc.requestCallback<_tarorpc_ListBalancesResponse__Output>): grpc.ClientUnaryCall;
   
+  ListGroups(argument: _tarorpc_ListGroupsRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: grpc.requestCallback<_tarorpc_ListGroupsResponse__Output>): grpc.ClientUnaryCall;
+  ListGroups(argument: _tarorpc_ListGroupsRequest, metadata: grpc.Metadata, callback: grpc.requestCallback<_tarorpc_ListGroupsResponse__Output>): grpc.ClientUnaryCall;
+  ListGroups(argument: _tarorpc_ListGroupsRequest, options: grpc.CallOptions, callback: grpc.requestCallback<_tarorpc_ListGroupsResponse__Output>): grpc.ClientUnaryCall;
+  ListGroups(argument: _tarorpc_ListGroupsRequest, callback: grpc.requestCallback<_tarorpc_ListGroupsResponse__Output>): grpc.ClientUnaryCall;
+  listGroups(argument: _tarorpc_ListGroupsRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: grpc.requestCallback<_tarorpc_ListGroupsResponse__Output>): grpc.ClientUnaryCall;
+  listGroups(argument: _tarorpc_ListGroupsRequest, metadata: grpc.Metadata, callback: grpc.requestCallback<_tarorpc_ListGroupsResponse__Output>): grpc.ClientUnaryCall;
+  listGroups(argument: _tarorpc_ListGroupsRequest, options: grpc.CallOptions, callback: grpc.requestCallback<_tarorpc_ListGroupsResponse__Output>): grpc.ClientUnaryCall;
+  listGroups(argument: _tarorpc_ListGroupsRequest, callback: grpc.requestCallback<_tarorpc_ListGroupsResponse__Output>): grpc.ClientUnaryCall;
+  
   ListTransfers(argument: _tarorpc_ListTransfersRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: grpc.requestCallback<_tarorpc_ListTransfersResponse__Output>): grpc.ClientUnaryCall;
   ListTransfers(argument: _tarorpc_ListTransfersRequest, metadata: grpc.Metadata, callback: grpc.requestCallback<_tarorpc_ListTransfersResponse__Output>): grpc.ClientUnaryCall;
   ListTransfers(argument: _tarorpc_ListTransfersRequest, options: grpc.CallOptions, callback: grpc.requestCallback<_tarorpc_ListTransfersResponse__Output>): grpc.ClientUnaryCall;
@@ -101,6 +114,15 @@ export interface TaroClient extends grpc.Client {
   listTransfers(argument: _tarorpc_ListTransfersRequest, metadata: grpc.Metadata, callback: grpc.requestCallback<_tarorpc_ListTransfersResponse__Output>): grpc.ClientUnaryCall;
   listTransfers(argument: _tarorpc_ListTransfersRequest, options: grpc.CallOptions, callback: grpc.requestCallback<_tarorpc_ListTransfersResponse__Output>): grpc.ClientUnaryCall;
   listTransfers(argument: _tarorpc_ListTransfersRequest, callback: grpc.requestCallback<_tarorpc_ListTransfersResponse__Output>): grpc.ClientUnaryCall;
+  
+  ListUtxos(argument: _tarorpc_ListUtxosRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: grpc.requestCallback<_tarorpc_ListUtxosResponse__Output>): grpc.ClientUnaryCall;
+  ListUtxos(argument: _tarorpc_ListUtxosRequest, metadata: grpc.Metadata, callback: grpc.requestCallback<_tarorpc_ListUtxosResponse__Output>): grpc.ClientUnaryCall;
+  ListUtxos(argument: _tarorpc_ListUtxosRequest, options: grpc.CallOptions, callback: grpc.requestCallback<_tarorpc_ListUtxosResponse__Output>): grpc.ClientUnaryCall;
+  ListUtxos(argument: _tarorpc_ListUtxosRequest, callback: grpc.requestCallback<_tarorpc_ListUtxosResponse__Output>): grpc.ClientUnaryCall;
+  listUtxos(argument: _tarorpc_ListUtxosRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: grpc.requestCallback<_tarorpc_ListUtxosResponse__Output>): grpc.ClientUnaryCall;
+  listUtxos(argument: _tarorpc_ListUtxosRequest, metadata: grpc.Metadata, callback: grpc.requestCallback<_tarorpc_ListUtxosResponse__Output>): grpc.ClientUnaryCall;
+  listUtxos(argument: _tarorpc_ListUtxosRequest, options: grpc.CallOptions, callback: grpc.requestCallback<_tarorpc_ListUtxosResponse__Output>): grpc.ClientUnaryCall;
+  listUtxos(argument: _tarorpc_ListUtxosRequest, callback: grpc.requestCallback<_tarorpc_ListUtxosResponse__Output>): grpc.ClientUnaryCall;
   
   MintAsset(argument: _tarorpc_MintAssetRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: grpc.requestCallback<_tarorpc_MintAssetResponse__Output>): grpc.ClientUnaryCall;
   MintAsset(argument: _tarorpc_MintAssetRequest, metadata: grpc.Metadata, callback: grpc.requestCallback<_tarorpc_MintAssetResponse__Output>): grpc.ClientUnaryCall;
@@ -173,7 +195,11 @@ export interface TaroHandlers extends grpc.UntypedServiceImplementation {
   
   ListBalances: grpc.handleUnaryCall<_tarorpc_ListBalancesRequest__Output, _tarorpc_ListBalancesResponse>;
   
+  ListGroups: grpc.handleUnaryCall<_tarorpc_ListGroupsRequest__Output, _tarorpc_ListGroupsResponse>;
+  
   ListTransfers: grpc.handleUnaryCall<_tarorpc_ListTransfersRequest__Output, _tarorpc_ListTransfersResponse>;
+  
+  ListUtxos: grpc.handleUnaryCall<_tarorpc_ListUtxosRequest__Output, _tarorpc_ListUtxosResponse>;
   
   MintAsset: grpc.handleUnaryCall<_tarorpc_MintAssetRequest__Output, _tarorpc_MintAssetResponse>;
   
@@ -197,7 +223,9 @@ export interface TaroDefinition extends grpc.ServiceDefinition {
   ImportProof: MethodDefinition<_tarorpc_ImportProofRequest, _tarorpc_ImportProofResponse, _tarorpc_ImportProofRequest__Output, _tarorpc_ImportProofResponse__Output>
   ListAssets: MethodDefinition<_tarorpc_ListAssetRequest, _tarorpc_ListAssetResponse, _tarorpc_ListAssetRequest__Output, _tarorpc_ListAssetResponse__Output>
   ListBalances: MethodDefinition<_tarorpc_ListBalancesRequest, _tarorpc_ListBalancesResponse, _tarorpc_ListBalancesRequest__Output, _tarorpc_ListBalancesResponse__Output>
+  ListGroups: MethodDefinition<_tarorpc_ListGroupsRequest, _tarorpc_ListGroupsResponse, _tarorpc_ListGroupsRequest__Output, _tarorpc_ListGroupsResponse__Output>
   ListTransfers: MethodDefinition<_tarorpc_ListTransfersRequest, _tarorpc_ListTransfersResponse, _tarorpc_ListTransfersRequest__Output, _tarorpc_ListTransfersResponse__Output>
+  ListUtxos: MethodDefinition<_tarorpc_ListUtxosRequest, _tarorpc_ListUtxosResponse, _tarorpc_ListUtxosRequest__Output, _tarorpc_ListUtxosResponse__Output>
   MintAsset: MethodDefinition<_tarorpc_MintAssetRequest, _tarorpc_MintAssetResponse, _tarorpc_MintAssetRequest__Output, _tarorpc_MintAssetResponse__Output>
   NewAddr: MethodDefinition<_tarorpc_NewAddrRequest, _tarorpc_Addr, _tarorpc_NewAddrRequest__Output, _tarorpc_Addr__Output>
   QueryAddrs: MethodDefinition<_tarorpc_QueryAddrRequest, _tarorpc_QueryAddrResponse, _tarorpc_QueryAddrRequest__Output, _tarorpc_QueryAddrResponse__Output>
