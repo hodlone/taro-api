@@ -1,8 +1,8 @@
 // Original file: protos/taro.proto
 
 
-export interface ListUtxosRequest {
+export interface ListUtxosRequestPartial {
 }
 
-export interface ListUtxosRequest__Output {
+export interface ListUtxosRequest {
 }

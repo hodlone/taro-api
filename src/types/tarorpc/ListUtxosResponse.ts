@@ -1,11 +1,11 @@
 // Original file: protos/taro.proto
 
-import type { ManagedUtxo as _tarorpc_ManagedUtxo, ManagedUtxo__Output as _tarorpc_ManagedUtxo__Output } from '../tarorpc/ManagedUtxo';
+import type { ManagedUtxoPartial as _tarorpc_ManagedUtxoPartial, ManagedUtxo as _tarorpc_ManagedUtxo } from '../tarorpc/ManagedUtxo';
 
-export interface ListUtxosResponse {
-  'managedUtxos'?: ({[key: string]: _tarorpc_ManagedUtxo});
+export interface ListUtxosResponsePartial {
+  'managedUtxos'?: ({[key: string]: _tarorpc_ManagedUtxoPartial});
 }
 
-export interface ListUtxosResponse__Output {
-  'managedUtxos': ({[key: string]: _tarorpc_ManagedUtxo__Output});
+export interface ListUtxosResponse {
+  'managedUtxos': ({[key: string]: _tarorpc_ManagedUtxo});
 }

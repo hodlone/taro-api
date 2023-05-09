@@ -1,8 +1,8 @@
 // Original file: protos/taro.proto
 
 
-export interface ImportProofResponse {
+export interface ImportProofResponsePartial {
 }
 
-export interface ImportProofResponse__Output {
+export interface ImportProofResponse {
 }

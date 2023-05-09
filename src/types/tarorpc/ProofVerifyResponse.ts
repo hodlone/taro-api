@@ -1,10 +1,10 @@
 // Original file: protos/taro.proto
 
 
-export interface ProofVerifyResponse {
+export interface ProofVerifyResponsePartial {
   'valid'?: (boolean);
 }
 
-export interface ProofVerifyResponse__Output {
+export interface ProofVerifyResponse {
   'valid': (boolean);
 }

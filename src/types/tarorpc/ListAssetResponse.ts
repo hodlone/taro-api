@@ -1,11 +1,11 @@
 // Original file: protos/taro.proto
 
-import type { Asset as _tarorpc_Asset, Asset__Output as _tarorpc_Asset__Output } from '../tarorpc/Asset';
+import type { AssetPartial as _tarorpc_AssetPartial, Asset as _tarorpc_Asset } from '../tarorpc/Asset';
 
-export interface ListAssetResponse {
-  'assets'?: (_tarorpc_Asset)[];
+export interface ListAssetResponsePartial {
+  'assets'?: (_tarorpc_AssetPartial)[];
 }
 
-export interface ListAssetResponse__Output {
-  'assets': (_tarorpc_Asset__Output)[];
+export interface ListAssetResponse {
+  'assets': (_tarorpc_Asset)[];
 }

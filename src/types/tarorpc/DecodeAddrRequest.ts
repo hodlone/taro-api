@@ -1,10 +1,10 @@
 // Original file: protos/taro.proto
 
 
-export interface DecodeAddrRequest {
+export interface DecodeAddrRequestPartial {
   'addr'?: (string);
 }
 
-export interface DecodeAddrRequest__Output {
+export interface DecodeAddrRequest {
   'addr': (string);
 }

@@ -1,11 +1,11 @@
 // Original file: protos/taro.proto
 
-import type { GroupedAssets as _tarorpc_GroupedAssets, GroupedAssets__Output as _tarorpc_GroupedAssets__Output } from '../tarorpc/GroupedAssets';
+import type { GroupedAssetsPartial as _tarorpc_GroupedAssetsPartial, GroupedAssets as _tarorpc_GroupedAssets } from '../tarorpc/GroupedAssets';
 
-export interface ListGroupsResponse {
-  'groups'?: ({[key: string]: _tarorpc_GroupedAssets});
+export interface ListGroupsResponsePartial {
+  'groups'?: ({[key: string]: _tarorpc_GroupedAssetsPartial});
 }
 
-export interface ListGroupsResponse__Output {
-  'groups': ({[key: string]: _tarorpc_GroupedAssets__Output});
+export interface ListGroupsResponse {
+  'groups': ({[key: string]: _tarorpc_GroupedAssets});
 }

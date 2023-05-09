@@ -2,15 +2,9 @@ syntax = "proto3";
 
 package tarorpc;
 
-option go_package = "github.com/lightninglabs/tarorpc";
+option go_package = "github.com/lightninglabs/taro/tarorpc";
 
 service Taro {
-    /* tarocli: `assets mint`
-    MintAsset will attempts to mint the set of assets (async by default to
-    ensure proper batching) specified in the request.
-    */
-    rpc MintAsset (MintAssetRequest) returns (MintAssetResponse);
-
     /* tarocli: `assets list`
     ListAssets lists the set of assets owned by the target daemon.
     */
@@ -94,11 +88,25 @@ service Taro {
     rpc ImportProof (ImportProofRequest) returns (ImportProofResponse);
 
     /* tarocli: `assets send`
-    SendAsset uses a passed taro address to attempt to complete an asset send.
-    The method returns information w.r.t the on chain send, as well as the
-    proof file information the receiver needs to fully receive the asset.
+    SendAsset uses one or multiple passed taro address(es) to attempt to
+    complete an asset send. The method returns information w.r.t the on chain
+    send, as well as the proof file information the receiver needs to fully
+    receive the asset.
     */
     rpc SendAsset (SendAssetRequest) returns (SendAssetResponse);
+
+    /*
+    SubscribeSendAssetEventNtfns registers a subscription to the event
+    notification stream which relates to the asset sending process.
+    */
+    rpc SubscribeSendAssetEventNtfns (SubscribeSendAssetEventNtfnsRequest)
+        returns (stream SendAssetEvent);
+
+    /*
+    FetchAssetMeta allows a caller to fetch the reveal meta data for an asset
+    either by the asset ID for that asset, or a meta hash.
+    */
+    rpc FetchAssetMeta (FetchAssetMetaRequest) returns (AssetMeta);
 }
 
 enum AssetType {
@@ -116,48 +124,35 @@ enum AssetType {
     */
     COLLECTIBLE = 1;
 }
-message MintAssetRequest {
-    // The type of the asset to be created.
-    AssetType asset_type = 1;
 
-    // The name, or "tag" of the asset. This will affect the final asset ID.
-    string name = 2;
-
+enum AssetMetaType {
     /*
-    An opaque blob that resents metadata related to the asset. This will affect
-    the final asset ID.
+    Opaque is used for asset meta blobs that have no true structure and instead
+    should be interpreted as opaque blobs.
     */
-    bytes meta_data = 3;
-
-    /*
-    The total amount of units of the new asset that should be created. If the
-    AssetType is Collectible, then this field cannot be set.
-    */
-    int64 amount = 4;
-
-    /*
-    If true, then the asset will be created with a key group, which allows for
-    future asset issuance.
-    */
-    bool enable_emission = 5;
-
-    /*
-    If true, then a batch will be created immediately. Otherwise the asset
-    creation transaction may be batched with other pending minting requests.
-    */
-    bool skip_batch = 6;
+    MTEA_TYPE_OPAQUE = 0;
 }
 
-message MintAssetResponse {
+message AssetMeta {
     /*
-    A public key serialized in compressed format that can be used to uniquely
-    identify a pending minting batch. Responses that share the same key will be
-    batched into the same minting transaction.
+    The raw data of the asset meta data. Based on the type below, this may be
+    structured data such as a text file or PDF.
     */
-    bytes batch_key = 1;
+    bytes data = 1;
+
+    // The type of the asset meta data.
+    AssetMetaType type = 2;
+
+    /*
+    The hash of the meta. This is the hash of the TLV serialization of the meta
+    itself.
+    */
+    bytes meta_hash = 3;
 }
 
 message ListAssetRequest {
+    bool with_witness = 1;
+    bool include_spent = 2;
 }
 
 message AnchorInfo {
@@ -165,7 +160,7 @@ message AnchorInfo {
     bytes anchor_tx = 1;
 
     // The txid of the above transaction.
-    bytes anchor_txid = 2;
+    string anchor_txid = 2;
 
     // The block hash the contains the anchor transaction above.
     bytes anchor_block_hash = 3;
@@ -177,6 +172,20 @@ message AnchorInfo {
     The raw internal key that was used to create the anchor Taproot output key.
     */
     bytes internal_key = 5;
+
+    /*
+    The Taproot merkle root hash of the anchor output the asset was committed
+    to. If there is no Tapscript sibling, this is equal to the Taro root
+    commitment hash.
+    */
+    bytes merkle_root = 6;
+
+    /*
+    The serialized preimage of a Tapscript sibling, if there was one. If this
+    is empty, then the merkle_root hash is equal to the Taproot root hash of the
+    anchor output.
+    */
+    bytes tapscript_sibling = 7;
 }
 
 message GenesisInfo {
@@ -186,8 +195,8 @@ message GenesisInfo {
     // The name of the asset.
     string name = 2;
 
-    // The opaque meta data of the asset.
-    bytes meta = 3;
+    // The hash of the meta data for this genesis asset.
+    bytes meta_hash = 3;
 
     // The asset ID that uniquely identifies the asset.
     bytes asset_id = 4;
@@ -198,14 +207,8 @@ message GenesisInfo {
     */
     uint32 output_index = 5;
 
-    /*
-    The full genesis information encoded in a portable manner so it can be
-    easily copy/pasted for address creation.
-    */
-    bytes genesis_bootstrap_info = 6;
-
     // The version of the Taro commitment that created this asset.
-    int32 version = 7;
+    int32 version = 6;
 }
 
 message AssetGroup {
@@ -233,7 +236,7 @@ message Asset {
     AssetType asset_type = 3;
 
     // The total amount of the asset stored in this Taro UTXO.
-    int64 amount = 4;
+    uint64 amount = 4;
 
     // An optional locktime, as with Bitcoin transactions.
     int32 lock_time = 5;
@@ -247,11 +250,32 @@ message Asset {
     // The script key of the asset, which can be spent under Taproot semantics.
     bytes script_key = 9;
 
+    // Indicates whether the script key is known to the wallet of the lnd node
+    // connected to the Taro daemon.
+    bool script_key_is_local = 10;
+
     // The information related to the key group of an asset (if it exists).
-    AssetGroup asset_group = 10;
+    AssetGroup asset_group = 11;
 
     // Describes where in the chain the asset is currently anchored.
-    AnchorInfo chain_anchor = 11;
+    AnchorInfo chain_anchor = 12;
+
+    repeated PrevWitness prev_witnesses = 13;
+
+    // Indicates whether the asset has been spent.
+    bool is_spent = 14;
+}
+
+message PrevWitness {
+    PrevInputAsset prev_id = 1;
+
+    repeated bytes tx_witness = 2;
+
+    SplitCommitment split_commitment = 3;
+}
+
+message SplitCommitment {
+    Asset root_asset = 1;
 }
 
 message ListAssetResponse {
@@ -271,11 +295,18 @@ message ManagedUtxo {
     // The internal key used for the on-chain output.
     bytes internal_key = 3;
 
-    // The Taro root that commits to the set of assets at this UTXO.
+    // The Taro root commitment hash.
     bytes taro_root = 4;
 
+    /*
+    The Taproot merkle root hash committed to by the outpoint of this UTXO.
+    If there is no Tapscript sibling, this is equal to the Taro root commitment
+    hash.
+    */
+    bytes merkle_root = 5;
+
     // The assets held at this UTXO.
-    repeated Asset assets = 5;
+    repeated Asset assets = 6;
 }
 
 message ListUtxosResponse {
@@ -302,8 +333,8 @@ message AssetHumanReadable {
     // The name of the asset.
     string tag = 5;
 
-    // The opaque metadata of the asset.
-    bytes meta_data = 6;
+    // The metadata hash of the asset.
+    bytes meta_hash = 6;
 
     // The type of the asset.
     AssetType type = 7;
@@ -346,7 +377,7 @@ message AssetBalance {
     AssetType asset_type = 2;
 
     // The balance of the asset owned by the target daemon.
-    int64 balance = 3;
+    uint64 balance = 3;
 }
 
 message AssetGroupBalance {
@@ -354,7 +385,7 @@ message AssetGroupBalance {
     bytes group_key = 1;
 
     // The total balance of the assets in the group.
-    int64 balance = 2;
+    uint64 balance = 2;
 }
 
 message ListBalancesResponse {
@@ -374,40 +405,65 @@ message ListTransfersResponse {
 message AssetTransfer {
     int64 transfer_timestamp = 1;
 
-    // The old/current location of the Taro commitment that was spent as an
-    // input.
-    string old_anchor_point = 2;
-
-    // The new location of the Taro commitment referenced by the old anchor
-    // point.
-    string new_anchor_point = 3;
-
-    // The new Taro root that commits to the set of modified and unmodified
-    // assets.
-    bytes taro_root = 4;
-
     // The new transaction that commits to the set of Taro assets found at the
     // above new anchor point.
-    bytes anchor_tx_hash = 5;
+    bytes anchor_tx_hash = 2;
 
-    // Describes the set of mutated assets that now live at the new anchor tx
-    // point.
-    repeated AssetSpendDelta asset_spend_deltas = 6;
+    uint32 anchor_tx_height_hint = 3;
+
+    int64 anchor_tx_chain_fees = 4;
+
+    // Describes the set of spent assets.
+    repeated TransferInput inputs = 5;
+
+    // Describes the set of newly created asset outputs.
+    repeated TransferOutput outputs = 6;
 }
 
-message AssetSpendDelta {
-    // The asset ID that uniquely identifies the asset.
-    bytes asset_id = 1;
+message TransferInput {
+    // The old/current location of the Taro commitment that was spent as an
+    // input.
+    string anchor_point = 1;
 
-    // The old script key that uniquely identified the spent asset on disk.
-    bytes old_script_key = 2;
+    // The ID of the asset that was spent.
+    bytes asset_id = 2;
 
-    // The new script key. We assume BIP 86 usage when updating the script keys
-    // on disk.
-    bytes new_script_key = 3;
+    // The script key of the asset that was spent.
+    bytes script_key = 3;
 
-    // The new amount for the asset.
-    int64 new_amt = 4;
+    // The amount of the asset that was spent.
+    uint64 amount = 4;
+}
+
+message TransferOutputAnchor {
+    // The new location of the Taro commitment that was created on chain.
+    string outpoint = 1;
+
+    int64 value = 2;
+
+    bytes internal_key = 3;
+
+    bytes taro_root = 4;
+
+    bytes merkle_root = 5;
+
+    bytes tapscript_sibling = 6;
+
+    uint32 num_passive_assets = 7;
+}
+
+message TransferOutput {
+    TransferOutputAnchor anchor = 1;
+
+    bytes script_key = 2;
+
+    bool script_key_is_local = 3;
+
+    uint64 amount = 4;
+
+    bytes new_proof_blob = 5;
+
+    bytes split_commit_root_hash = 6;
 }
 
 message StopRequest {
@@ -437,7 +493,7 @@ message Addr {
     AssetType asset_type = 3;
 
     // The total amount of the asset stored in this Taro UTXO.
-    int64 amount = 4;
+    uint64 amount = 4;
 
     // The group key of the asset (if it exists)
     bytes group_key = 5;
@@ -452,11 +508,19 @@ message Addr {
     bytes internal_key = 7;
 
     /*
+    The optional serialized tapscript sibling preimage to use for the receiving
+    asset. This is usually empty as it is only needed when there should be an
+    additional script path in the Taproot tree alongside the Taro commitment of
+    the asset.
+    */
+    bytes tapscript_sibling = 8;
+
+    /*
     The tweaked internal key that commits to the asset and represents the
     on-chain output key the Bitcoin transaction must send to in order to
     transfer assets described in this address.
     */
-    bytes taproot_output_key = 8;
+    bytes taproot_output_key = 9;
 }
 
 message QueryAddrRequest {
@@ -484,11 +548,81 @@ message QueryAddrResponse {
 }
 
 message NewAddrRequest {
-    bytes genesis_bootstrap_info = 1;
+    bytes asset_id = 1;
 
-    bytes group_key = 2;
+    uint64 amt = 2;
 
-    int64 amt = 3;
+    /*
+    The optional script key that the receiving asset should be locked to. If no
+    script key is provided, a normal BIP-86 key will be derived from the
+    underlying wallet.
+
+    NOTE: The script_key and internal_key fields should either both be set or
+    both be empty.
+    */
+    ScriptKey script_key = 3;
+
+    /*
+    The optional internal key of the receiving BTC level transaction output on
+    which the receiving asset transfers will be committed to. If no internal key
+    is provided, a key will be derived from the underlying wallet.
+
+    NOTE: The script_key and internal_key fields should either both be set or
+    both be empty.
+    */
+    KeyDescriptor internal_key = 4;
+
+    /*
+    The optional serialized tapscript sibling preimage to use for the receiving
+    asset. This is usually empty as it is only needed when there should be an
+    additional script path in the Taproot tree alongside the Taro commitment of
+    the asset.
+    */
+    bytes tapscript_sibling = 5;
+}
+
+message ScriptKey {
+    /*
+    The full Taproot output key the asset is locked to. This is either a BIP-86
+    key if the tap_tweak below is empty, or a key with the tap tweak applied to
+    it.
+    */
+    bytes pub_key = 1;
+
+    /*
+    The key descriptor describing the internal key of the above Taproot key.
+    */
+    KeyDescriptor key_desc = 2;
+
+    /*
+    The optional Taproot tweak to apply to the above internal key. If this is
+    empty then a BIP-86 style tweak is applied to the internal key.
+    */
+    bytes tap_tweak = 3;
+}
+
+message KeyLocator {
+    /*
+    The family of key being identified.
+    */
+    int32 key_family = 1;
+
+    /*
+    The precise index of the key being identified.
+    */
+    int32 key_index = 2;
+}
+
+message KeyDescriptor {
+    /*
+    The raw bytes of the key being identified.
+    */
+    bytes raw_key_bytes = 1;
+
+    /*
+    The key locator that identifies which key to use for signing.
+    */
+    KeyLocator key_loc = 2;
 }
 
 message DecodeAddrRequest {
@@ -552,7 +686,6 @@ message AddrEvent {
 
     /*
     The taproot sibling hash that was used to send to the Taproot output.
-    NOTE: Not yet implemented.
     */
     bytes taproot_sibling = 6;
 
@@ -583,7 +716,7 @@ message AddrReceivesResponse {
 }
 
 message SendAssetRequest {
-    string taro_addr = 1;
+    repeated string taro_addrs = 1;
 
     // TODO(roasbeef): maybe in future add details re type of ProofCourier or
     // w/e
@@ -593,37 +726,54 @@ message PrevInputAsset {
     string anchor_point = 1;
     bytes asset_id = 2;
     bytes script_key = 3;
-    int64 amount = 4;
-}
-
-message AssetOutput {
-    string anchor_point = 1;
-    bytes asset_id = 2;
-    bytes script_key = 3;
-    int64 amount = 4;
-
-    bytes new_proof_blob = 5;
-
-    bytes split_commit_proof = 6;
-}
-
-message TaroTransfer {
-    bytes old_taro_root = 1;
-
-    bytes new_taro_root = 2;
-
-    repeated PrevInputAsset prev_inputs = 3;
-
-    repeated AssetOutput new_outputs = 4;
+    uint64 amount = 4;
 }
 
 message SendAssetResponse {
-    bytes transfer_txid = 1;
-    int32 anchor_output_index = 2;
+    AssetTransfer transfer = 1;
+}
 
-    bytes transfer_tx_bytes = 3;
+message SubscribeSendAssetEventNtfnsRequest {
+}
 
-    TaroTransfer taro_transfer = 4;
+message SendAssetEvent {
+    oneof event {
+        // An event which indicates that a send state is about to be executed.
+        ExecuteSendStateEvent execute_send_state_event = 1;
 
-    int64 total_fee_sats = 5;
+        // An event which indicates that the proof send backoff wait period will
+        // start imminently.
+        ReceiverProofBackoffWaitEvent receiver_proof_backoff_wait_event = 2;
+    }
+}
+
+message ExecuteSendStateEvent {
+    // Execute timestamp (microseconds).
+    int64 timestamp = 1;
+
+    // The send state that is about to be executed.
+    string send_state = 2;
+}
+
+message ReceiverProofBackoffWaitEvent {
+    // Transfer attempt timestamp (microseconds).
+    int64 timestamp = 1;
+
+    // Backoff is the active backoff wait duration.
+    int64 backoff = 2;
+
+    // Tries counter is the number of tries we've made so far during the
+    // course of the current backoff procedure to deliver the proof to the
+    // receiver.
+    int64 tries_counter = 3;
+}
+
+message FetchAssetMetaRequest {
+    oneof asset {
+        // The asset ID of the asset to fetch the meta for.
+        bytes asset_id = 1;
+
+        // The 32-byte meta hash of the asset meta.
+        bytes meta_hash = 2;
+    }
 }

@@ -2,14 +2,14 @@
 
 import type { Long } from '@grpc/proto-loader';
 
-export interface PrevInputAsset {
+export interface PrevInputAssetPartial {
   'anchorPoint'?: (string);
   'assetId'?: (Buffer | Uint8Array | string);
   'scriptKey'?: (Buffer | Uint8Array | string);
   'amount'?: (number | string | Long);
 }
 
-export interface PrevInputAsset__Output {
+export interface PrevInputAsset {
   'anchorPoint': (string);
   'assetId': (Buffer);
   'scriptKey': (Buffer);

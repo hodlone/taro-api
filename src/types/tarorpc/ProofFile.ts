@@ -1,12 +1,12 @@
 // Original file: protos/taro.proto
 
 
-export interface ProofFile {
+export interface ProofFilePartial {
   'rawProof'?: (Buffer | Uint8Array | string);
   'genesisPoint'?: (string);
 }
 
-export interface ProofFile__Output {
+export interface ProofFile {
   'rawProof': (Buffer);
   'genesisPoint': (string);
 }

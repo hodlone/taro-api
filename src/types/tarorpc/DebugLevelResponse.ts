@@ -1,10 +1,10 @@
 // Original file: protos/taro.proto
 
 
-export interface DebugLevelResponse {
+export interface DebugLevelResponsePartial {
   'subSystems'?: (string);
 }
 
-export interface DebugLevelResponse__Output {
+export interface DebugLevelResponse {
   'subSystems': (string);
 }

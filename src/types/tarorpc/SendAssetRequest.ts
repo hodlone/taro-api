@@ -1,10 +1,10 @@
 // Original file: protos/taro.proto
 
 
-export interface SendAssetRequest {
-  'taroAddr'?: (string);
+export interface SendAssetRequestPartial {
+  'taroAddrs'?: (string)[];
 }
 
-export interface SendAssetRequest__Output {
-  'taroAddr': (string);
+export interface SendAssetRequest {
+  'taroAddrs': (string)[];
 }

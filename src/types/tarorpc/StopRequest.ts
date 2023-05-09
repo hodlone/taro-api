@@ -1,8 +1,8 @@
 // Original file: protos/taro.proto
 
 
-export interface StopRequest {
+export interface StopRequestPartial {
 }
 
-export interface StopRequest__Output {
+export interface StopRequest {
 }

@@ -2,12 +2,12 @@
 
 import type { Long } from '@grpc/proto-loader';
 
-export interface AssetGroupBalance {
+export interface AssetGroupBalancePartial {
   'groupKey'?: (Buffer | Uint8Array | string);
   'balance'?: (number | string | Long);
 }
 
-export interface AssetGroupBalance__Output {
+export interface AssetGroupBalance {
   'groupKey': (Buffer);
   'balance': (string);
 }

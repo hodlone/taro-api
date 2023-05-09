@@ -1,8 +1,8 @@
 // Original file: protos/taro.proto
 
 
-export interface ListTransfersRequest {
+export interface ListTransfersRequestPartial {
 }
 
-export interface ListTransfersRequest__Output {
+export interface ListTransfersRequest {
 }

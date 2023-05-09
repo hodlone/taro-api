@@ -1,11 +1,11 @@
 // Original file: protos/taro.proto
 
-import type { Addr as _tarorpc_Addr, Addr__Output as _tarorpc_Addr__Output } from '../tarorpc/Addr';
+import type { AddrPartial as _tarorpc_AddrPartial, Addr as _tarorpc_Addr } from '../tarorpc/Addr';
 
-export interface QueryAddrResponse {
-  'addrs'?: (_tarorpc_Addr)[];
+export interface QueryAddrResponsePartial {
+  'addrs'?: (_tarorpc_AddrPartial)[];
 }
 
-export interface QueryAddrResponse__Output {
-  'addrs': (_tarorpc_Addr__Output)[];
+export interface QueryAddrResponse {
+  'addrs': (_tarorpc_Addr)[];
 }

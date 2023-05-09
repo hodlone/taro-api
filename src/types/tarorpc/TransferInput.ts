@@ -2,20 +2,16 @@
 
 import type { Long } from '@grpc/proto-loader';
 
-export interface AssetOutput {
+export interface TransferInputPartial {
   'anchorPoint'?: (string);
   'assetId'?: (Buffer | Uint8Array | string);
   'scriptKey'?: (Buffer | Uint8Array | string);
   'amount'?: (number | string | Long);
-  'newProofBlob'?: (Buffer | Uint8Array | string);
-  'splitCommitProof'?: (Buffer | Uint8Array | string);
 }
 
-export interface AssetOutput__Output {
+export interface TransferInput {
   'anchorPoint': (string);
   'assetId': (Buffer);
   'scriptKey': (Buffer);
   'amount': (string);
-  'newProofBlob': (Buffer);
-  'splitCommitProof': (Buffer);
 }

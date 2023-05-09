@@ -1,11 +1,11 @@
 // Original file: protos/taro.proto
 
-import type { AddrEvent as _tarorpc_AddrEvent, AddrEvent__Output as _tarorpc_AddrEvent__Output } from '../tarorpc/AddrEvent';
+import type { AddrEventPartial as _tarorpc_AddrEventPartial, AddrEvent as _tarorpc_AddrEvent } from '../tarorpc/AddrEvent';
 
-export interface AddrReceivesResponse {
-  'events'?: (_tarorpc_AddrEvent)[];
+export interface AddrReceivesResponsePartial {
+  'events'?: (_tarorpc_AddrEventPartial)[];
 }
 
-export interface AddrReceivesResponse__Output {
-  'events': (_tarorpc_AddrEvent__Output)[];
+export interface AddrReceivesResponse {
+  'events': (_tarorpc_AddrEvent)[];
 }

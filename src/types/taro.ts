@@ -20,18 +20,22 @@ export interface ProtoGrpcType {
     AssetGroup: MessageTypeDefinition
     AssetGroupBalance: MessageTypeDefinition
     AssetHumanReadable: MessageTypeDefinition
-    AssetOutput: MessageTypeDefinition
-    AssetSpendDelta: MessageTypeDefinition
+    AssetMeta: MessageTypeDefinition
+    AssetMetaType: EnumTypeDefinition
     AssetTransfer: MessageTypeDefinition
     AssetType: EnumTypeDefinition
     DebugLevelRequest: MessageTypeDefinition
     DebugLevelResponse: MessageTypeDefinition
     DecodeAddrRequest: MessageTypeDefinition
+    ExecuteSendStateEvent: MessageTypeDefinition
     ExportProofRequest: MessageTypeDefinition
+    FetchAssetMetaRequest: MessageTypeDefinition
     GenesisInfo: MessageTypeDefinition
     GroupedAssets: MessageTypeDefinition
     ImportProofRequest: MessageTypeDefinition
     ImportProofResponse: MessageTypeDefinition
+    KeyDescriptor: MessageTypeDefinition
+    KeyLocator: MessageTypeDefinition
     ListAssetRequest: MessageTypeDefinition
     ListAssetResponse: MessageTypeDefinition
     ListBalancesRequest: MessageTypeDefinition
@@ -43,20 +47,26 @@ export interface ProtoGrpcType {
     ListUtxosRequest: MessageTypeDefinition
     ListUtxosResponse: MessageTypeDefinition
     ManagedUtxo: MessageTypeDefinition
-    MintAssetRequest: MessageTypeDefinition
-    MintAssetResponse: MessageTypeDefinition
     NewAddrRequest: MessageTypeDefinition
     PrevInputAsset: MessageTypeDefinition
+    PrevWitness: MessageTypeDefinition
     ProofFile: MessageTypeDefinition
     ProofVerifyResponse: MessageTypeDefinition
     QueryAddrRequest: MessageTypeDefinition
     QueryAddrResponse: MessageTypeDefinition
+    ReceiverProofBackoffWaitEvent: MessageTypeDefinition
+    ScriptKey: MessageTypeDefinition
+    SendAssetEvent: MessageTypeDefinition
     SendAssetRequest: MessageTypeDefinition
     SendAssetResponse: MessageTypeDefinition
+    SplitCommitment: MessageTypeDefinition
     StopRequest: MessageTypeDefinition
     StopResponse: MessageTypeDefinition
+    SubscribeSendAssetEventNtfnsRequest: MessageTypeDefinition
     Taro: SubtypeConstructor<typeof grpc.Client, _tarorpc_TaroClient> & { service: _tarorpc_TaroDefinition }
-    TaroTransfer: MessageTypeDefinition
+    TransferInput: MessageTypeDefinition
+    TransferOutput: MessageTypeDefinition
+    TransferOutputAnchor: MessageTypeDefinition
   }
 }
 

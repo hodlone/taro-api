@@ -1,7 +1,7 @@
 // Original file: protos/taro.proto
 
 
-export interface ListBalancesRequest {
+export interface ListBalancesRequestPartial {
   'assetId'?: (boolean);
   'groupKey'?: (boolean);
   'assetFilter'?: (Buffer | Uint8Array | string);
@@ -9,7 +9,7 @@ export interface ListBalancesRequest {
   'groupBy'?: "assetId"|"groupKey";
 }
 
-export interface ListBalancesRequest__Output {
+export interface ListBalancesRequest {
   'assetId'?: (boolean);
   'groupKey'?: (boolean);
   'assetFilter': (Buffer);

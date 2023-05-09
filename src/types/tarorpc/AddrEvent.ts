@@ -1,12 +1,12 @@
 // Original file: protos/taro.proto
 
-import type { Addr as _tarorpc_Addr, Addr__Output as _tarorpc_Addr__Output } from '../tarorpc/Addr';
+import type { AddrPartial as _tarorpc_AddrPartial, Addr as _tarorpc_Addr } from '../tarorpc/Addr';
 import type { AddrEventStatus as _tarorpc_AddrEventStatus } from '../tarorpc/AddrEventStatus';
 import type { Long } from '@grpc/proto-loader';
 
-export interface AddrEvent {
+export interface AddrEventPartial {
   'creationTimeUnixSeconds'?: (number | string | Long);
-  'addr'?: (_tarorpc_Addr | null);
+  'addr'?: (_tarorpc_AddrPartial | null);
   'status'?: (_tarorpc_AddrEventStatus | keyof typeof _tarorpc_AddrEventStatus);
   'outpoint'?: (string);
   'utxoAmtSat'?: (number | string | Long);
@@ -15,9 +15,9 @@ export interface AddrEvent {
   'hasProof'?: (boolean);
 }
 
-export interface AddrEvent__Output {
+export interface AddrEvent {
   'creationTimeUnixSeconds': (string);
-  'addr': (_tarorpc_Addr__Output | null);
+  'addr': (_tarorpc_Addr | null);
   'status': (keyof typeof _tarorpc_AddrEventStatus);
   'outpoint': (string);
   'utxoAmtSat': (string);

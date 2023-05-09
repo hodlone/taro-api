@@ -1,22 +1,23 @@
 // Original file: protos/taro.proto
 
-import type { AssetSpendDelta as _tarorpc_AssetSpendDelta, AssetSpendDelta__Output as _tarorpc_AssetSpendDelta__Output } from '../tarorpc/AssetSpendDelta';
+import type { TransferInputPartial as _tarorpc_TransferInputPartial, TransferInput as _tarorpc_TransferInput } from '../tarorpc/TransferInput';
+import type { TransferOutputPartial as _tarorpc_TransferOutputPartial, TransferOutput as _tarorpc_TransferOutput } from '../tarorpc/TransferOutput';
 import type { Long } from '@grpc/proto-loader';
 
-export interface AssetTransfer {
+export interface AssetTransferPartial {
   'transferTimestamp'?: (number | string | Long);
-  'oldAnchorPoint'?: (string);
-  'newAnchorPoint'?: (string);
-  'taroRoot'?: (Buffer | Uint8Array | string);
   'anchorTxHash'?: (Buffer | Uint8Array | string);
-  'assetSpendDeltas'?: (_tarorpc_AssetSpendDelta)[];
+  'anchorTxHeightHint'?: (number);
+  'anchorTxChainFees'?: (number | string | Long);
+  'inputs'?: (_tarorpc_TransferInputPartial)[];
+  'outputs'?: (_tarorpc_TransferOutputPartial)[];
 }
 
-export interface AssetTransfer__Output {
+export interface AssetTransfer {
   'transferTimestamp': (string);
-  'oldAnchorPoint': (string);
-  'newAnchorPoint': (string);
-  'taroRoot': (Buffer);
   'anchorTxHash': (Buffer);
-  'assetSpendDeltas': (_tarorpc_AssetSpendDelta__Output)[];
+  'anchorTxHeightHint': (number);
+  'anchorTxChainFees': (string);
+  'inputs': (_tarorpc_TransferInput)[];
+  'outputs': (_tarorpc_TransferOutput)[];
 }

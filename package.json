@@ -13,7 +13,7 @@
   "scripts": {
     "publish": "tsc && npm publish --access public",
     "build": "tsc",
-    "generate:types": "./node_modules/.bin/proto-loader-gen-types --longs=String --enums=String --defaults --oneofs --grpcLib=@grpc/grpc-js --outDir=./src/types/ protos/*.proto"
+    "generate:types": "./node_modules/.bin/proto-loader-gen-types --longs=String --enums=String --defaults --oneofs --inputTemplate=%sPartial --outputTemplate=%s --grpcLib=@grpc/grpc-js --outDir=./src/types/ protos/*.proto"
   },
   "author": {
     "name": "Ricardo Alonzo"

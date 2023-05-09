@@ -3,22 +3,22 @@
 import type { AssetType as _tarorpc_AssetType } from '../tarorpc/AssetType';
 import type { Long } from '@grpc/proto-loader';
 
-export interface AssetHumanReadable {
+export interface AssetHumanReadablePartial {
   'id'?: (Buffer | Uint8Array | string);
   'amount'?: (number | string | Long);
   'lockTime'?: (number);
   'relativeLockTime'?: (number);
   'tag'?: (string);
-  'metaData'?: (Buffer | Uint8Array | string);
+  'metaHash'?: (Buffer | Uint8Array | string);
   'type'?: (_tarorpc_AssetType | keyof typeof _tarorpc_AssetType);
 }
 
-export interface AssetHumanReadable__Output {
+export interface AssetHumanReadable {
   'id': (Buffer);
   'amount': (string);
   'lockTime': (number);
   'relativeLockTime': (number);
   'tag': (string);
-  'metaData': (Buffer);
+  'metaHash': (Buffer);
   'type': (keyof typeof _tarorpc_AssetType);
 }
