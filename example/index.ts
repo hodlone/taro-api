@@ -1,7 +1,6 @@
-import { AssetType } from "../src/types/tarorpc/AssetType";
-import { TaroApi } from "./../src";
+import { TaroClient, AssetType } from '../src';
 
-const taro = TaroApi.create({
+const client = TaroClient.create({
   socket: "127.0.0.1:10029",
   macaroon:
     "0201047461726f026f030a10547b993757fe7ec00d21c64d968b87fe1201301a180a09616464726573736573120472656164120577726974651a150a06617373657473120472656164120577726974651a0f0a066461656d6f6e120577726974651a150a0670726f6f66731204726561641205777269746500000620b33bcfc64629086b47201fb7b5691ef37ee2c1242a2407c64469730b5ad93945",
@@ -9,23 +8,23 @@ const taro = TaroApi.create({
 });
 
 (async () => {
-  const { batchKey } = await taro.mintAssets({ name: 'example-asset', amount: 1000, skipBatch: true, assetType: AssetType.NORMAL });
+  const { batchKey } = await client.mint.mintAsset({ asset: { name: 'example-asset', amount: 1000, assetType: AssetType.NORMAL } });
 
   console.log(batchKey);
 
-  const { assets } = await taro.listAssets();
+  const { assets } = await client.taro.listAssets();
 
   console.log(assets);
 
-  const address = await taro.newAddr({ genesisBootstrapInfo: assets[0].assetGenesis?.genesisBootstrapInfo, amt: 100 })
+  const address = await client.taro.newAddr({ assetId: assets[0].assetGenesis?.assetId, amt: 100 })
 
   console.log(address.encoded);
 
-  const transfer = await taro.sendAsset({ taroAddr: address.encoded })
+  const transfer = await client.taro.sendAsset({ taroAddrs: [address.encoded] })
 
   console.log(transfer);
 
-  const { transfers } = await taro.listTransfers();
+  const { transfers } = await client.taro.listTransfers();
 
-  console.log(transfers[0].assetSpendDeltas);
+  console.log(transfers[0].anchorTxHash);
 })()

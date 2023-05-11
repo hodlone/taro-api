@@ -6,14 +6,14 @@ Taro api client to interact with lightning labs taro daemon.
 
 Import the module.
 ```
-import { TaroApi } from "@hodlone/taro-api"
+import { TaroClient } from "@hodlone/taro-api"
 // OR
-const { TaroApi } = require("@hodlone/taro-api");
+const { TaroClient } = require("@hodlone/taro-api");
 ```
 
 Creating a client instance.
 ```
-const taro = TaroApi.create({
+const taro = TaroClient.create({
   socket: "127.0.0.1:10029",
   macaroon:
     "0201047461726f026f030a100177ae3a6fe2a57c46a6d51d5ca9ebd71201301a180a09616464726573736573120472656164120577726974651a150a06617373657473120472656164120577726974651a0f0a066461656d6f6e120577726974651a150a0670726f6f667312047265616412057772697465000006201e3dbeba0be88d83c928e86811eaf306d823d458bee66c98af024e8a8a71b455",
@@ -24,24 +24,24 @@ const taro = TaroApi.create({
 Making calls.
 ```
 (async () => {
-  const { batchKey } = await taro.mintAssets({ name: 'example-asset', amount: 1000, skipBatch: true, assetType: AssetType.NORMAL });
+  const { batchKey } = await client.mint.mintAsset({ asset: { name: 'example-asset', amount: 1000, assetType: AssetType.NORMAL } });
 
   console.log(batchKey);
 
-  const { assets } = await taro.listAssets();
+  const { assets } = await client.taro.listAssets();
 
   console.log(assets);
 
-  const address = await taro.newAddr({ genesisBootstrapInfo: assets[0].assetGenesis?.genesisBootstrapInfo, amt: 100 })
+  const address = await client.taro.newAddr({ assetId: assets[0].assetGenesis?.assetId, amt: 100 })
 
   console.log(address.encoded);
 
-  const transfer = await taro.sendAsset({ taroAddr: address.encoded })
+  const transfer = await client.taro.sendAsset({ taroAddrs: [address.encoded] })
 
   console.log(transfer);
 
-  const { transfers } = await taro.listTransfers();
+  const { transfers } = await client.taro.listTransfers();
 
-  console.log(transfers[0].assetSpendDeltas);
+  console.log(transfers[0].anchorTxHash);
 })()
 ```
