@@ -1,11 +1,11 @@
 import * as grpc from '@grpc/grpc-js';
 import * as protoLoader from '@grpc/proto-loader';
 import Path from 'path';
-import { TaroClientOptions } from './';
+import { TapdClientOptions } from './';
 
 export const loadProto = <T>(
   protoFileName: string,
-  options: TaroClientOptions
+  options: TapdClientOptions
 ): {
   proto: T;
   credentials: grpc.ChannelCredentials;

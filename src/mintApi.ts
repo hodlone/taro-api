@@ -1,5 +1,5 @@
 import { promisify } from 'util';
-import { TaroClientOptions } from './';
+import { TapdClientOptions } from './';
 import { loadProto } from './proto';
 import {
   CancelBatchRequestPartial,
@@ -15,7 +15,7 @@ import {
 import { ProtoGrpcType } from './types/mint';
 
 /**
- * @MintApi API interface for Taro's Mint RPC sub-server.
+ * @MintApi API interface for tapd's Mint RPC sub-server.
  */
 
 export class MintApi {
@@ -23,7 +23,7 @@ export class MintApi {
    * @create Create a new MintApi instance.
    */
 
-  static create(options: TaroClientOptions) {
+  static create(options: TapdClientOptions) {
     const { proto, credentials, params } = loadProto<ProtoGrpcType>(
       'mint.proto',
       options

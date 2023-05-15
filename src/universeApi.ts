@@ -1,5 +1,5 @@
 import { promisify } from 'util';
-import { TaroClientOptions } from './';
+import { TapdClientOptions } from './';
 import { loadProto } from './proto';
 import {
   AddFederationServerRequestPartial,
@@ -25,7 +25,7 @@ import {
 import { ProtoGrpcType } from './types/universe';
 
 /**
- * @UniverseApi API interface for Taro's Universe RPC sub-server.
+ * @UniverseApi API interface for tapd's Universe RPC sub-server.
  */
 
 export class UniverseApi {
@@ -33,7 +33,7 @@ export class UniverseApi {
    * @create Create a new UniverseApi instance.
    */
 
-  static create(options: TaroClientOptions) {
+  static create(options: TapdClientOptions) {
     const { proto, credentials, params } = loadProto<ProtoGrpcType>(
       'universe.proto',
       options
@@ -80,8 +80,8 @@ export class UniverseApi {
    * @assetLeafKeys AssetLeafKeys queries for the set of Universe keys associated with a given
    * asset_id or group_key. Each key takes the form: (outpoint, script_key),
    * where outpoint is an outpoint in the Bitcoin blockcahin that anchors a
-   * valid Taro asset commitment, and script_key is the script_key of the asset
-   * within the Taro asset commitment for the given asset_id or group_key.
+   * valid Taproot asset commitment, and script_key is the script_key of the asset
+   * within the Taptoot asset commitment for the given asset_id or group_key.
    */
 
   async assetLeafKeys(request: IDPartial = {}): Promise<AssetLeafKeyResponse> {
@@ -92,7 +92,7 @@ export class UniverseApi {
    * @assetLeaves AssetLeaves queries for the set of asset leaves (the values in the Universe
    * MS-SMT tree) for a given asset_id or group_key. These represents either
    * asset issuance events (they have a genesis witness) or asset transfers that
-   * took place on chain. The leaves contain a normal Taro asset proof, as well
+   * took place on chain. The leaves contain a normal Taproot asset proof, as well
    * as details for the asset.
    */
   async assetLeaves(request: IDPartial = {}): Promise<AssetLeafResponse> {
@@ -100,33 +100,31 @@ export class UniverseApi {
   }
 
   /**
-   * @queryIssuanceProof QueryIssuanceProof attempts to query for an issuance proof for a given
-   * asset based on its UniverseKey. A UniverseKey is composed of the Universe ID
-   * (asset_id/group_key) and also a leaf key (outpoint || script_key). If
+   * @queryProof QueryProof attempts to query for an issuance or transfer proof for a given
+   * asset based on its UniverseKey. A UniverseKey is composed of the Universe
+   * ID (asset_id/group_key) and also a leaf key (outpoint || script_key). If
    * found, then the issuance proof is returned that includes an inclusion proof
-   * to the known Universe root, as well as a Taro state transition or issuance
-   * proof for the said asset.
+   * to the known Universe root, as well as a Taproot Asset state transition or
+   * issuance proof for the said asset.
    */
 
-  async queryIssuanceProof(
+  async queryProof(
     request: UniverseKeyPartial = {}
   ): Promise<IssuanceProofResponse> {
-    return promisify(this.client.QueryIssuanceProof.bind(this.client))(request);
+    return promisify(this.client.QueryProof.bind(this.client))(request);
   }
 
   /**
-   * @insertIssuanceProof InsertIssuanceProof attempts to insert a new issuance proof into the
+   * @insertProof InsertProof attempts to insert a new issuance or transfer proof into the
    * Universe tree specified by the UniverseKey. If valid, then the proof is
    * inserted into the database, with a new Universe root returned for the
    * updated asset_id/group_key.
    */
 
-  async insertIssuanceProof(
+  async insertProof(
     request: IssuanceProofPartial = {}
   ): Promise<IssuanceProofResponse> {
-    return promisify(this.client.InsertIssuanceProof.bind(this.client))(
-      request
-    );
+    return promisify(this.client.InsertProof.bind(this.client))(request);
   }
 
   /**

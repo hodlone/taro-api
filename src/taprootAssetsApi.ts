@@ -1,5 +1,5 @@
 import { promisify } from 'util';
-import { TaroClientOptions } from './';
+import { TapdClientOptions } from './';
 import { loadProto } from './proto';
 import {
   Addr,
@@ -29,27 +29,27 @@ import {
   SendAssetResponse,
   StopRequestPartial,
   StopResponse,
-  TaroClient,
+  TaprootAssetsClient,
 } from './types';
-import { ProtoGrpcType } from './types/taro';
+import { ProtoGrpcType } from './types/taprootassets';
 
 /**
- * @TaroApi API interface for Taro's daemon.
+ * @TaprootAssetsApi API interface for Tap's daemon.
  */
 
-export class TaroApi {
+export class TaprootAssetsApi {
   /**
-   * @create Create a new TaroApi instance.
+   * @create Create a new TaprootAssetsApi instance.
    */
 
-  static create(options: TaroClientOptions) {
+  static create(options: TapdClientOptions) {
     const { proto, credentials, params } = loadProto<ProtoGrpcType>(
-      'taro.proto',
+      'taprootassets.proto',
       options
     );
 
-    return new TaroApi(
-      new proto.tarorpc.Taro(options.socket, credentials, params)
+    return new TaprootAssetsApi(
+      new proto.taprpc.TaprootAssets(options.socket, credentials, params)
     );
   }
 
@@ -57,9 +57,9 @@ export class TaroApi {
    * @client The grpc client to contact daemon.
    */
 
-  client: TaroClient;
+  client: TaprootAssetsClient;
 
-  constructor(client: TaroClient) {
+  constructor(client: TaprootAssetsClient) {
     this.client = client;
   }
 
@@ -138,7 +138,7 @@ export class TaroApi {
   }
 
   /**
-   * @queryAddrs QueryTaroAddrs queries the set of Taro addresses stored in the database.
+   * @queryAddrs QueryAddrs queries the set of Taproot Asset addresses stored in the database.
    */
 
   async queryAddrs(
@@ -156,7 +156,7 @@ export class TaroApi {
   }
 
   /**
-   * @decodeAddr DecodeAddr decode a Taro address into a partial asset message that
+   * @decodeAddr DecodeAddr decode a Taproot Assets address into a partial asset message that
    * represents the asset it wants to receive.
    */
 

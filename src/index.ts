@@ -1,50 +1,50 @@
 import { AssetWalletApi } from './assetWalletApi';
 import { MintApi } from './mintApi';
-import { TaroApi } from './taroApi';
+import { TaprootAssetsApi } from './taprootAssetsApi';
 import { UniverseApi } from './universeApi';
 
 /**
- * @TaroClientOptions interface
+ * @TapdClientOptions interface
  */
 
-export interface TaroClientOptions {
+export interface TapdClientOptions {
   /**
-   * @socket Taro daemon's host and port in `host:port` format.
+   * @socket tapd's host and port in `host:port` format.
    */
 
   socket: string;
 
   /**
-   * @macaroon Taro daemon's macaroon in HEX format.
+   * @macaroon tapd's macaroon in HEX format.
    */
 
   macaroon: string;
 
   /**
-   * @cert Taro daemon's TLS certificate in HEX format.
+   * @cert tapd's TLS certificate in HEX format.
    */
 
   cert: string;
 }
 
 /**
- * @TaroRpcApis The Taro RPC APIs.
+ * @TaprootAssetsRpcApis The tapd RPC APIs.
  */
-export interface TaroRpcApis {
-  taro: TaroApi;
+export interface TapdRpcApis {
+  taprootAssets: TaprootAssetsApi;
   mint: MintApi;
   assetWallet: AssetWalletApi;
   universe: UniverseApi;
 }
 
-export class TaroClient {
+export class TapClient {
   /**
-   * @create Create instances of all Taro RPC APIs.
+   * @create Create instances of all tapd RPC APIs.
    */
 
-  static create(options: TaroClientOptions): TaroRpcApis {
+  static create(options: TapdClientOptions): TapdRpcApis {
     return {
-      taro: TaroApi.create(options),
+      taprootAssets: TaprootAssetsApi.create(options),
       mint: MintApi.create(options),
       assetWallet: AssetWalletApi.create(options),
       universe: UniverseApi.create(options),
@@ -52,5 +52,5 @@ export class TaroClient {
   }
 }
 
-export { TaroApi, MintApi, AssetWalletApi, UniverseApi };
+export { TaprootAssetsApi, MintApi, AssetWalletApi, UniverseApi };
 export * from './types';

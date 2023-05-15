@@ -1,5 +1,5 @@
 import { promisify } from 'util';
-import { TaroClientOptions } from './';
+import { TapdClientOptions } from './';
 import { loadProto } from './proto';
 import {
   AnchorVirtualPsbtsRequestPartial,
@@ -17,7 +17,7 @@ import {
 import { ProtoGrpcType } from './types/assetwallet';
 
 /**
- * @AssetWalletApi API interface for Taro's AssetWallet RPC sub-server.
+ * @AssetWalletApi API interface for tapd's AssetWallet RPC sub-server.
  */
 
 export class AssetWalletApi {
@@ -25,7 +25,7 @@ export class AssetWalletApi {
    * @create Create a new AssetWalletApi instance.
    */
 
-  static create(options: TaroClientOptions) {
+  static create(options: TapdClientOptions) {
     const { proto, credentials, params } = loadProto<ProtoGrpcType>(
       'assetwallet.proto',
       options
