@@ -1,7 +1,7 @@
 import type * as grpc from '@grpc/grpc-js';
 import type { EnumTypeDefinition, MessageTypeDefinition } from '@grpc/proto-loader';
 
-import type { TaroClient as _tarorpc_TaroClient, TaroDefinition as _tarorpc_TaroDefinition } from './tarorpc/Taro';
+import type { TaprootAssetsClient as _taprpc_TaprootAssetsClient, TaprootAssetsDefinition as _taprpc_TaprootAssetsDefinition } from './taprpc/TaprootAssets';
 import type { UniverseClient as _universerpc_UniverseClient, UniverseDefinition as _universerpc_UniverseDefinition } from './universerpc/Universe';
 
 type SubtypeConstructor<Constructor extends new (...args: any) => any, Subtype> = {
@@ -9,7 +9,7 @@ type SubtypeConstructor<Constructor extends new (...args: any) => any, Subtype> 
 };
 
 export interface ProtoGrpcType {
-  tarorpc: {
+  taprpc: {
     Addr: MessageTypeDefinition
     AddrEvent: MessageTypeDefinition
     AddrEventStatus: EnumTypeDefinition
@@ -49,6 +49,7 @@ export interface ProtoGrpcType {
     ListUtxosResponse: MessageTypeDefinition
     ManagedUtxo: MessageTypeDefinition
     NewAddrRequest: MessageTypeDefinition
+    OutputType: EnumTypeDefinition
     PrevInputAsset: MessageTypeDefinition
     PrevWitness: MessageTypeDefinition
     ProofFile: MessageTypeDefinition
@@ -64,7 +65,7 @@ export interface ProtoGrpcType {
     StopRequest: MessageTypeDefinition
     StopResponse: MessageTypeDefinition
     SubscribeSendAssetEventNtfnsRequest: MessageTypeDefinition
-    Taro: SubtypeConstructor<typeof grpc.Client, _tarorpc_TaroClient> & { service: _tarorpc_TaroDefinition }
+    TaprootAssets: SubtypeConstructor<typeof grpc.Client, _taprpc_TaprootAssetsClient> & { service: _taprpc_TaprootAssetsDefinition }
     TransferInput: MessageTypeDefinition
     TransferOutput: MessageTypeDefinition
     TransferOutputAnchor: MessageTypeDefinition
@@ -76,24 +77,31 @@ export interface ProtoGrpcType {
     AssetLeaf: MessageTypeDefinition
     AssetLeafKeyResponse: MessageTypeDefinition
     AssetLeafResponse: MessageTypeDefinition
+    AssetProof: MessageTypeDefinition
+    AssetProofResponse: MessageTypeDefinition
+    AssetQuerySort: EnumTypeDefinition
     AssetRootQuery: MessageTypeDefinition
     AssetRootRequest: MessageTypeDefinition
     AssetRootResponse: MessageTypeDefinition
+    AssetStatsQuery: MessageTypeDefinition
+    AssetStatsSnapshot: MessageTypeDefinition
+    AssetTypeFilter: EnumTypeDefinition
     DeleteFederationServerRequest: MessageTypeDefinition
     DeleteFederationServerResponse: MessageTypeDefinition
     ID: MessageTypeDefinition
-    IssuanceProof: MessageTypeDefinition
-    IssuanceProofResponse: MessageTypeDefinition
     ListFederationServersRequest: MessageTypeDefinition
     ListFederationServersResponse: MessageTypeDefinition
     MerkleSumNode: MessageTypeDefinition
     Outpoint: MessageTypeDefinition
     QueryRootResponse: MessageTypeDefinition
+    StatsRequest: MessageTypeDefinition
+    StatsResponse: MessageTypeDefinition
     SyncRequest: MessageTypeDefinition
     SyncResponse: MessageTypeDefinition
     SyncTarget: MessageTypeDefinition
     SyncedUniverse: MessageTypeDefinition
     Universe: SubtypeConstructor<typeof grpc.Client, _universerpc_UniverseClient> & { service: _universerpc_UniverseDefinition }
+    UniverseAssetStats: MessageTypeDefinition
     UniverseFederationServer: MessageTypeDefinition
     UniverseKey: MessageTypeDefinition
     UniverseRoot: MessageTypeDefinition

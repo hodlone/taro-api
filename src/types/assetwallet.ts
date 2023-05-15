@@ -2,7 +2,7 @@ import type * as grpc from '@grpc/grpc-js';
 import type { EnumTypeDefinition, MessageTypeDefinition } from '@grpc/proto-loader';
 
 import type { AssetWalletClient as _assetwalletrpc_AssetWalletClient, AssetWalletDefinition as _assetwalletrpc_AssetWalletDefinition } from './assetwalletrpc/AssetWallet';
-import type { TaroClient as _tarorpc_TaroClient, TaroDefinition as _tarorpc_TaroDefinition } from './tarorpc/Taro';
+import type { TaprootAssetsClient as _taprpc_TaprootAssetsClient, TaprootAssetsDefinition as _taprpc_TaprootAssetsDefinition } from './taprpc/TaprootAssets';
 
 type SubtypeConstructor<Constructor extends new (...args: any) => any, Subtype> = {
   new(...args: ConstructorParameters<Constructor>): Subtype;
@@ -20,11 +20,15 @@ export interface ProtoGrpcType {
     NextScriptKeyResponse: MessageTypeDefinition
     OutPoint: MessageTypeDefinition
     PrevId: MessageTypeDefinition
+    ProveAssetOwnershipRequest: MessageTypeDefinition
+    ProveAssetOwnershipResponse: MessageTypeDefinition
     SignVirtualPsbtRequest: MessageTypeDefinition
     SignVirtualPsbtResponse: MessageTypeDefinition
     TxTemplate: MessageTypeDefinition
+    VerifyAssetOwnershipRequest: MessageTypeDefinition
+    VerifyAssetOwnershipResponse: MessageTypeDefinition
   }
-  tarorpc: {
+  taprpc: {
     Addr: MessageTypeDefinition
     AddrEvent: MessageTypeDefinition
     AddrEventStatus: EnumTypeDefinition
@@ -64,6 +68,7 @@ export interface ProtoGrpcType {
     ListUtxosResponse: MessageTypeDefinition
     ManagedUtxo: MessageTypeDefinition
     NewAddrRequest: MessageTypeDefinition
+    OutputType: EnumTypeDefinition
     PrevInputAsset: MessageTypeDefinition
     PrevWitness: MessageTypeDefinition
     ProofFile: MessageTypeDefinition
@@ -79,7 +84,7 @@ export interface ProtoGrpcType {
     StopRequest: MessageTypeDefinition
     StopResponse: MessageTypeDefinition
     SubscribeSendAssetEventNtfnsRequest: MessageTypeDefinition
-    Taro: SubtypeConstructor<typeof grpc.Client, _tarorpc_TaroClient> & { service: _tarorpc_TaroDefinition }
+    TaprootAssets: SubtypeConstructor<typeof grpc.Client, _taprpc_TaprootAssetsClient> & { service: _taprpc_TaprootAssetsDefinition }
     TransferInput: MessageTypeDefinition
     TransferOutput: MessageTypeDefinition
     TransferOutputAnchor: MessageTypeDefinition

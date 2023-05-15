@@ -1,13 +1,13 @@
 // Original file: protos/universe.proto
 
-import type { AssetPartial as _tarorpc_AssetPartial, Asset as _tarorpc_Asset } from '../tarorpc/Asset';
+import type { AssetPartial as _taprpc_AssetPartial, Asset as _taprpc_Asset } from '../taprpc/Asset';
 
 export interface AssetLeafPartial {
-  'asset'?: (_tarorpc_AssetPartial | null);
+  'asset'?: (_taprpc_AssetPartial | null);
   'issuanceProof'?: (Buffer | Uint8Array | string);
 }
 
 export interface AssetLeaf {
-  'asset': (_tarorpc_Asset | null);
+  'asset': (_taprpc_Asset | null);
   'issuanceProof': (Buffer);
 }

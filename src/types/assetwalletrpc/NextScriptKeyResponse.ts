@@ -1,11 +1,11 @@
 // Original file: protos/assetwallet.proto
 
-import type { ScriptKeyPartial as _tarorpc_ScriptKeyPartial, ScriptKey as _tarorpc_ScriptKey } from '../tarorpc/ScriptKey';
+import type { ScriptKeyPartial as _taprpc_ScriptKeyPartial, ScriptKey as _taprpc_ScriptKey } from '../taprpc/ScriptKey';
 
 export interface NextScriptKeyResponsePartial {
-  'scriptKey'?: (_tarorpc_ScriptKeyPartial | null);
+  'scriptKey'?: (_taprpc_ScriptKeyPartial | null);
 }
 
 export interface NextScriptKeyResponse {
-  'scriptKey': (_tarorpc_ScriptKey | null);
+  'scriptKey': (_taprpc_ScriptKey | null);
 }

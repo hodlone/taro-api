@@ -1,11 +1,11 @@
 // Original file: protos/assetwallet.proto
 
-import type { KeyDescriptorPartial as _tarorpc_KeyDescriptorPartial, KeyDescriptor as _tarorpc_KeyDescriptor } from '../tarorpc/KeyDescriptor';
+import type { KeyDescriptorPartial as _taprpc_KeyDescriptorPartial, KeyDescriptor as _taprpc_KeyDescriptor } from '../taprpc/KeyDescriptor';
 
 export interface NextInternalKeyResponsePartial {
-  'internalKey'?: (_tarorpc_KeyDescriptorPartial | null);
+  'internalKey'?: (_taprpc_KeyDescriptorPartial | null);
 }
 
 export interface NextInternalKeyResponse {
-  'internalKey': (_tarorpc_KeyDescriptor | null);
+  'internalKey': (_taprpc_KeyDescriptor | null);
 }
